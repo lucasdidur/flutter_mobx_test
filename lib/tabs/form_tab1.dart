@@ -117,38 +117,41 @@ class _AtualizarCadastroViewAnexoTabState extends State<AtualizarCadastroViewAne
 
                       // Email
                       Observer(
-                          builder: (_) => TextFieldWidget(
-                                controller: controllerEmail,
-                                labelText: "E-mail",
-                                onChanged: (value) => store.email = value,
-                                errorText: store.error.email,
-                                keyboardType: TextInputType.emailAddress,
-                              )),
+                        builder: (_) => TextFieldWidget(
+                          controller: controllerEmail,
+                          labelText: "E-mail",
+                          onChanged: (value) => store.email = value,
+                          errorText: store.error.email,
+                          keyboardType: TextInputType.emailAddress,
+                        ),
+                      ),
 
                       // Cidade
                       Observer(
-                          builder: (_) => TextFieldWidget(
-                                controller: controllerCidade,
-                                labelText: "Cidade",
-                                onChanged: (value) => store.cidade = value,
-                                errorText: store.error.cidade,
-                                inputFormatters: <TextInputFormatter>[
-                                  LengthLimitingTextInputFormatter(100),
-                                ],
-                              )),
+                        builder: (_) => TextFieldWidget(
+                          controller: controllerCidade,
+                          labelText: "Cidade",
+                          onChanged: (value) => store.cidade = value,
+                          errorText: store.error.cidade,
+                          inputFormatters: <TextInputFormatter>[
+                            LengthLimitingTextInputFormatter(100),
+                          ],
+                        ),
+                      ),
 
                       // Outras Informações
                       Observer(
-                          builder: (_) => TextFieldWidget(
-                                controller: controllerOutrasInformacoes,
-                                labelText: "Outras Informações",
-                                onChanged: (value) => store.outrasInformacoes = value,
-                                errorText: store.error.outrasInformacoes,
-                                maxLines: 4,
-                                inputFormatters: <TextInputFormatter>[
-                                  LengthLimitingTextInputFormatter(200),
-                                ],
-                              )),
+                        builder: (_) => TextFieldWidget(
+                          controller: controllerOutrasInformacoes,
+                          labelText: "Outras Informações",
+                          onChanged: (value) => store.outrasInformacoes = value,
+                          errorText: store.error.outrasInformacoes,
+                          maxLines: 4,
+                          inputFormatters: <TextInputFormatter>[
+                            LengthLimitingTextInputFormatter(200),
+                          ],
+                        ),
+                      ),
 
                       Container(
                         padding: EdgeInsets.only(top: 25),
