@@ -139,9 +139,9 @@ mixin _$AtualizarCadastroStore on _AtualizarCadastroStoreBase, Store {
 
   @override
   Future<dynamic> loadDefault(BuildContext context,
-      {TextEditingController txNome}) {
-    return _$loadDefaultAsyncAction
-        .run(() => super.loadDefault(context, txNome: txNome));
+      {TextEditingController txNome, TextEditingController txTelefoneCelular}) {
+    return _$loadDefaultAsyncAction.run(() => super.loadDefault(context,
+        txNome: txNome, txTelefoneCelular: txTelefoneCelular));
   }
 
   final _$addFileAsyncAction =

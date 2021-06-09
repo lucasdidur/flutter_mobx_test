@@ -42,17 +42,22 @@ abstract class _AtualizarCadastroStoreBase with Store {
   List<ReactionDisposer> _disposers;
 
   @action
-  Future loadDefault(BuildContext context, {TextEditingController txNome}) async {
+  Future loadDefault(
+    BuildContext context, {
+    TextEditingController txNome,
+    TextEditingController txTelefoneCelular,
+  }) async {
     // var produtor = Provider.of<AppSession>(context, listen: false).produtor;
     // print('Carregando informações do produtor' + produtor.toString());
 
     // var userProfile = await context.read<UserProfileRepository>().findByProdutor(produtor);
     var userProfile = UserProfile(
       nomeCompleto: "Lucas Didur",
+      telefoneCelular: "42 999603090",
       ultimaAlteracao: DateTime.now(),
     );
     nameCompleto = userProfile.nomeCompleto;
-    // telefoneCelular = userProfile.telefoneCelular;
+    telefoneCelular = userProfile.telefoneCelular;
     // telefoneFixo = userProfile.telefoneFixo;
     // email = userProfile.email;
     // cidade = userProfile.cidade;
@@ -60,6 +65,7 @@ abstract class _AtualizarCadastroStoreBase with Store {
     ultimaAlteracao = userProfile.ultimaAlteracao;
 
     txNome.text = nameCompleto;
+    txTelefoneCelular.text = telefoneCelular;
   }
 
   void setupValidations() {

@@ -45,6 +45,7 @@ class _AtualizarCadastroViewAnexoTabState extends State<AtualizarCadastroViewAne
       Provider.of<AtualizarCadastroStore>(context, listen: false).loadDefault(
         context,
         txNome: controllerNomeCompleto,
+        txTelefoneCelular: controllerTelefoneCelular,
       );
     });
   }
@@ -75,122 +76,93 @@ class _AtualizarCadastroViewAnexoTabState extends State<AtualizarCadastroViewAne
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       // Nome Completo
-                      InputTextWidget(
-                        controller: controllerNomeCompleto,
-                        labelText: "Nome Completo",
-                        errorText: store.error.nameCompleto,
-                        onChange: (value) {
-                          controllerNomeCompleto.text = value;
-                          controllerNomeCompleto.selection = TextSelection.collapsed(offset: value.length);
-                          return store.nameCompleto = value;
-                        },
-                      ),
+                      Observer(builder: (_) {
+                        return TextFieldWidget(
+                          controller: controllerNomeCompleto,
+                          onChanged: (value) => store.nameCompleto = value,
+                          labelText: 'Nome Completo',
+                          errorText: store.error.nameCompleto,
+                        );
+                      }),
 
                       // Telefone Celular
                       Observer(
-                        builder: (_) {
-                          controllerTelefoneCelular.value = TextEditingValue(
-                            text: store.telefoneCelular,
-                            selection: TextSelection.collapsed(offset: store.telefoneCelular.length),
-                          );
-                          return InputTextWidget(
-                            controller: controllerTelefoneCelular,
-                            labelText: "Telefone Celular",
-                            onSubmitted: (value) => store.telefoneCelular = value,
-                            keyboardType: TextInputType.phone,
-                            textInputFormatter: <TextInputFormatter>[
-                              LengthLimitingTextInputFormatter(12),
-                              FilteringTextInputFormatter.digitsOnly,
-                              // NumberTextInputFormatter(),
-                            ],
-                          );
-                        },
+                        builder: (_) => TextFieldWidget(
+                          controller: controllerTelefoneCelular,
+                          labelText: "Telefone Celular",
+                          onChanged: (value) => store.telefoneCelular = value,
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: <TextInputFormatter>[
+                            LengthLimitingTextInputFormatter(12),
+                            FilteringTextInputFormatter.digitsOnly,
+                            // NumberTextInputFormatter(),
+                          ],
+                        ),
                       ),
 
                       // Telefone Fixo
                       Observer(
-                        builder: (_) {
-                          controllerTelefoneFixo.value = TextEditingValue(
-                            text: store.telefoneFixo,
-                            selection: TextSelection.collapsed(offset: store.telefoneFixo.length),
-                          );
-                          return InputTextWidget(
-                            controller: controllerTelefoneFixo,
-                            labelText: "Telefone Fixo",
-                            onChange: (value) => store.telefoneFixo = value,
-                            keyboardType: TextInputType.phone,
-                            textInputFormatter: <TextInputFormatter>[
-                              LengthLimitingTextInputFormatter(12),
-                              FilteringTextInputFormatter.digitsOnly,
-                              // NumberTextInputFormatter(),
-                            ],
-                          );
-                        },
+                        builder: (_) => TextFieldWidget(
+                          controller: controllerTelefoneFixo,
+                          labelText: "Telefone Fixo",
+                          onChanged: (value) => store.telefoneFixo = value,
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: <TextInputFormatter>[
+                            LengthLimitingTextInputFormatter(12),
+                            FilteringTextInputFormatter.digitsOnly,
+                            // NumberTextInputFormatter(),
+                          ],
+                        ),
                       ),
 
                       // Email
-                      Observer(builder: (_) {
-                        controllerEmail.value = TextEditingValue(
-                          text: store.email,
-                          selection: TextSelection.collapsed(offset: store.email.length),
-                        );
-                        return InputTextWidget(
-                          controller: controllerEmail,
-                          labelText: "E-mail",
-                          onChange: (value) => store.email = value,
-                          errorText: store.error.email,
-                          keyboardType: TextInputType.emailAddress,
-                        );
-                      }),
+                      Observer(
+                          builder: (_) => TextFieldWidget(
+                                controller: controllerEmail,
+                                labelText: "E-mail",
+                                onChanged: (value) => store.email = value,
+                                errorText: store.error.email,
+                                keyboardType: TextInputType.emailAddress,
+                              )),
 
                       // Cidade
-                      Observer(builder: (_) {
-                        controllerCidade.value = TextEditingValue(
-                          text: store.cidade,
-                          selection: TextSelection.collapsed(offset: store.cidade.length),
-                        );
-                        return InputTextWidget(
-                          controller: controllerCidade,
-                          labelText: "Cidade",
-                          onChange: (value) => store.cidade = value,
-                          errorText: store.error.cidade,
-                          textInputFormatter: <TextInputFormatter>[
-                            LengthLimitingTextInputFormatter(100),
-                          ],
-                        );
-                      }),
+                      Observer(
+                          builder: (_) => TextFieldWidget(
+                                controller: controllerCidade,
+                                labelText: "Cidade",
+                                onChanged: (value) => store.cidade = value,
+                                errorText: store.error.cidade,
+                                inputFormatters: <TextInputFormatter>[
+                                  LengthLimitingTextInputFormatter(100),
+                                ],
+                              )),
 
                       // Outras Informações
-                      Observer(builder: (_) {
-                        controllerOutrasInformacoes.value = TextEditingValue(
-                          text: store.outrasInformacoes,
-                          selection: TextSelection.collapsed(offset: store.outrasInformacoes.length),
-                        );
-                        return InputTextWidget(
-                          controller: controllerOutrasInformacoes,
-                          labelText: "Outras Informações",
-                          onChange: (value) => store.outrasInformacoes = value,
-                          errorText: store.error.outrasInformacoes,
-                          maxLines: 4,
-                          textInputFormatter: <TextInputFormatter>[
-                            LengthLimitingTextInputFormatter(200),
-                          ],
-                        );
-                      }),
-
                       Observer(
-                        builder: (_) => Container(
-                          padding: EdgeInsets.only(top: 25),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Texto(
+                          builder: (_) => TextFieldWidget(
+                                controller: controllerOutrasInformacoes,
+                                labelText: "Outras Informações",
+                                onChanged: (value) => store.outrasInformacoes = value,
+                                errorText: store.error.outrasInformacoes,
+                                maxLines: 4,
+                                inputFormatters: <TextInputFormatter>[
+                                  LengthLimitingTextInputFormatter(200),
+                                ],
+                              )),
+
+                      Container(
+                        padding: EdgeInsets.only(top: 25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Observer(builder: (_) {
+                              return Texto(
                                 "Ultima Atualização Enviada: " + formatDateddMMyyykkmm(store.ultimaAlteracao),
-                              ),
-                            ],
-                          ),
+                              );
+                            }),
+                          ],
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

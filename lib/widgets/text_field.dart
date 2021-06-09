@@ -3,6 +3,94 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx_test/utils/string_util.dart';
 
+class TextFieldWidget extends StatelessWidget {
+  const TextFieldWidget({
+    Key key,
+    this.controller,
+    this.onChanged,
+    this.labelText,
+    this.errorText,
+    this.keyboardType,
+    this.inputFormatters,
+    this.maxLines,
+    this.padding = const EdgeInsets.fromLTRB(0, 10, 0, 10),
+    this.focusNode,
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+  final String labelText;
+  final String errorText;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter> inputFormatters;
+  final int maxLines;
+  final EdgeInsets padding;
+  final focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    var inputDecoration = InputDecoration(
+      // icon: icon != null ? Icon(icon) : null,
+      // suffixIcon: suffixIcon,
+      // prefixIcon: prefixIcon,
+      // hintText: hintText,
+      // counterText: counterText,
+      // errorStyle: TextStyle(fontSize: 13, color: theme.themeColor.errorColor),
+      // hintStyle: TextStyle(color: theme.inputTheme.hintColor, fontSize: 14),
+      isDense: true,
+      contentPadding: EdgeInsets.only(left: 10, top: 20, right: 10),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(3),
+        borderSide: BorderSide(width: 1, style: BorderStyle.solid, color: Color(0xffe8e8e8)),
+      ),
+    );
+
+    var inputDecorationDisable = inputDecoration.copyWith(
+      filled: true,
+      fillColor: Color(0xffe8e8e8),
+    );
+
+    return Container(
+      padding: isNotNullOrEmpty(labelText) ? padding : null,
+      child: Column(
+        children: [
+          buildLabel(),
+          TextField(
+            controller: controller,
+            onChanged: onChanged,
+            style: TextStyle(fontSize: 12),
+            decoration: inputDecoration.copyWith(
+              errorMaxLines: 4,
+              errorText: errorText,
+            ),
+            keyboardType: keyboardType == null ? TextInputType.text : keyboardType,
+            inputFormatters: inputFormatters,
+            maxLines: maxLines,
+            focusNode: focusNode,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildLabel() {
+    if (isNotNullOrEmpty(labelText)) {
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: Container(
+          padding: EdgeInsets.only(bottom: 2),
+          child: Text(
+            labelText,
+            // style: TextStyle(color: theme.inputTheme.labelColor, fontWeight: FontWeight.bold, fontSize: 12),
+          ),
+        ),
+      );
+    }
+
+    return Container();
+  }
+}
+
 class InputTextWidget extends StatelessWidget {
   InputTextWidget({
     this.key,
